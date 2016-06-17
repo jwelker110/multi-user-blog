@@ -14,31 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
-
-import jinja2
 import webapp2
 
-j = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-
-
-class Helper(webapp2.RequestHandler):
-    def render(self, template, params):
-        template = j.get_template('index.html')
-        self.response.write(template.render(params))
-
-    def render_template(self, template, **kw):
-        self.render(self, template, **kw)
+from app.helpers import Helper
+from app.blueprints.user import CreateUserHandler
 
 
 class MainHandler(Helper):
     def get(self):
-        self.render_template('index.html')
+        self.render('index.html')
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/user/create', CreateUserHandler)
 ], debug=True)
