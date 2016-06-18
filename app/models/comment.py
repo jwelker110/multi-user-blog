@@ -1,8 +1,8 @@
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
 
-class Comment(db.Model):
-    author = db.StringProperty(required=True)
-    content = db.StringProperty(required=True)
-    created = db.DateTimeProperty(auto_now_add=True)
+class Comment(ndb.Model):
+    author = ndb.StringProperty(required=True)
+    content = ndb.StringProperty(required=True)
+    created = ndb.DateTimeProperty(auto_now_add=True)
 
