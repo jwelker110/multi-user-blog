@@ -1,7 +1,6 @@
 from string import lower
-from hashlib import sha256
 
-from app.helpers import Helper, flash, pw, SECRET
+from app.helpers import Helper, flash
 from app.models import User
 from app.forms import LoginForm
 
