@@ -1,7 +1,7 @@
 from lib.wtforms.form import Form
-from lib.wtforms.fields.html5 import EmailField
 from lib.wtforms.fields.core import StringField
 from lib.wtforms.fields.simple import PasswordField
+from lib.wtforms.csrf.core import CSRFTokenField
 from lib.wtforms import validators
 
 
@@ -12,3 +12,4 @@ class LoginForm(Form):
     password = PasswordField('Password',
                              [validators.length(min=8, max=30, message='Password must be 8-30 chars'),
                               validators.required()])
+    csrf_token = CSRFTokenField()
