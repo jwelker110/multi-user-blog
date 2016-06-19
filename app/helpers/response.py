@@ -44,14 +44,25 @@ class Helper(webapp2.RequestHandler):
 
     def generate_sig(self, data):
         h = sha256(data + SECRET).hexdigest()
-        return data + '|' + h
+        self.response.set_cookie('user', data + '|' + h)
 
-    def validate_sig(self, h):
+    def validate_sig(self):
+        h = self.request.cookies.get('user', '')
         data = h.split('|')[0]
-        return h == sha256(data + SECRET).hexdigest()
+        if h == '' or h != sha256(data + SECRET).hexdigest():
+            self.invalidate_sig()
+            return False
+        return True
 
-    def retrieve_sig_data(self, h):
+    def retrieve_sig_data(self):
+        h = self.request.cookies.get('user')
+        if h is None:
+            return None
         return h.split('|')[0]
+
+    def invalidate_sig(self):
+        self.response.delete_cookie('user')
+        self.session['user'] = None
 
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
