@@ -61,5 +61,5 @@ class Helper(webapp2.RequestHandler):
         return template.render(kw)
 
     def render(self, template, **kw):
-        self.write(self.render_temp(template, **kw))
+        self.write(self.render_temp(template, user=self.session.get('user'), **kw))
 
