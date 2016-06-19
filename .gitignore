@@ -1,1 +1,4 @@
 .idea
+multienv
+*secret*
+*.pyc

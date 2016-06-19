@@ -1,9 +1,12 @@
 import os
 import random
 import string
+from hashlib import sha256
+
 import jinja2
 import webapp2
 from webapp2_extras import sessions
+from secret import SECRET
 
 template_dir = os.path.join(os.getcwd(), 'templates/')
 J = jinja2.Environment(
@@ -38,6 +41,17 @@ class Helper(webapp2.RequestHandler):
         if token is None:
             return False
         return self.session.get('csrf_token') == token
+
+    def generate_sig(self, data):
+        h = sha256(data + SECRET).hexdigest()
+        return data + '|' + h
+
+    def validate_sig(self, h):
+        data = h.split('|')[0]
+        return h == sha256(data + SECRET).hexdigest()
+
+    def retrieve_sig_data(self, h):
+        return h.split('|')[0]
 
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
