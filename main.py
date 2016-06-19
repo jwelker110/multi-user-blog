@@ -16,8 +16,13 @@
 #
 import webapp2
 
-from app.helpers import Helper
-from app.blueprints.user import CreateUserHandler
+from app.helpers import Helper, SECRET
+from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
+
+
+config = {'webapp2_extras.sessions': {
+    'secret_key': SECRET,
+}}
 
 
 class MainHandler(Helper):
@@ -27,5 +32,7 @@ class MainHandler(Helper):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/user/create', CreateUserHandler)
-], debug=True)
+    ('/user/register', RegisterHandler),
+    ('/user/login', LoginHandler),
+    ('/user/logout', LogoutHandler)
+], config=config, debug=True)
