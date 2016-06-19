@@ -7,4 +7,3 @@ class Post(ndb.Model):
     created = ndb.DateTimeProperty(auto_now_add=True)
     subject = ndb.StringProperty()
     content = ndb.TextProperty(required=True)
-    image = ndb.BlobProperty()
