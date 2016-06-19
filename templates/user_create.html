@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    {% from "__formhelpers.html" import render_form %}
+    <div class="row">
+        <form method="post" action="/user/login">
+            {{ render_form(login_form, '', 'form-control') }}
+            <div class="form-group">
+                <input class="btn btn-default" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+    <hr>
+    <div class="row">
+        <form method="post" action="/user/create">
+            {{ render_form(register_form, '', 'form-control') }}
+            <div class="form-group">
+                <input class="btn btn-default" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+{% endblock %}
