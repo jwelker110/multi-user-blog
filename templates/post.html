@@ -3,4 +3,13 @@
 {% block title %}Blogger | View{% endblock %}
 
 {% block content %}
+    {% from "__formhelpers.html" import render_form %}
+    <div class="row">
+        <form method="post" action="/user/login">
+            {{ render_form(form, '', 'form-control') }}
+            <div class="form-group">
+                <input class="btn btn-default" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
 {% endblock %}
