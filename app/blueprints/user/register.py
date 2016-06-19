@@ -12,6 +12,12 @@ class RegisterHandler(Helper):
         self.render(template, form=form, **kw)
 
     def get(self):
+        # make sure we aren't logged in right meow
+        user = self.session.get('user')
+        if user is not None:
+            self.redirect('/')
+            return
+
         # let's set the CSRF token
         token = self.generate_csrf()
         reg_form = RegisterForm(data={'csrf_token': token})
