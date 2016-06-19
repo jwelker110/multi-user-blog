@@ -18,7 +18,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+            {% if user %}
+          <a class="navbar-brand" href="/user/{{ user }}/posts">{{ user }}</a>
+            {% else %}
           <a class="navbar-brand" href="#">Blogger</a>
+            {% endif %}
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,6 +39,11 @@
                 <li><a href="#">Separated link</a></li>
               </ul>
             </li>
+              {% if user %}
+              <li><a href="/user/logout">Logout</a></li>
+              {% else %}
+              <li><a href="/user/login">Login</a></li>
+              {% endif %}
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
