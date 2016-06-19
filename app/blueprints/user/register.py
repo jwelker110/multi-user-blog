@@ -43,7 +43,7 @@ class RegisterHandler(Helper):
             return
 
         # check for an existing account
-        exists = User.query(User.username == form.username.data).get()
+        exists = User.query(User.username_lower == lower(form.username.data)).get()
         if exists is not None:
             self.r(form, flashes=flash('That username is taken'))
             return
