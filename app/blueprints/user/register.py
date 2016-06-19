@@ -18,7 +18,7 @@ class RegisterHandler(Helper):
         self.r(reg_form)
 
     def post(self):
-        user = self.request.cookies.get('user')
+        user = self.session.get('user')
         if user is not None:
             self.redirect('/')
             return
@@ -45,12 +45,17 @@ class RegisterHandler(Helper):
         # create the user
         try:
             user = User(
-                username=form.username,
-                username_lower=lower(form.username),
-                password=pw.gen_hash(form.password),
+                username=form.username.data,
+                username_lower=lower(form.username.data),
+                password=pw.gen_hash(form.password.data),
             )
 
             user.put()
+            # the user has been created, sign them in
+            self.session['user'] = user.username_lower
+            # create a hash with our secret so we know the cookie is legit later
+            sig = self.generate_sig(user.username_lower)
+            self.response.set_cookie('user', sig)
             self.redirect('/', True)
             return
         except:  # guess something happened eh?

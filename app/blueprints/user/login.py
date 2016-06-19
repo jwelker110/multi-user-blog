@@ -19,6 +19,11 @@ class LoginHandler(Helper):
         self.r(reg_form)
 
     def post(self):
+        user = self.session.get('user')
+        if user is not None:
+            self.redirect('/')
+            return
+
         form = LoginForm(self.request.params)
 
         # validate form
@@ -39,9 +44,9 @@ class LoginHandler(Helper):
             return
 
         # the user exists, sign them in.
-        self.session['user'] = exists.username
+        self.session['user'] = exists.username_lower
         # create a hash with our secret so we know the cookie is legit later
-        sig = self.generate_sig(exists.username)
+        sig = self.generate_sig(exists.username_lower)
         self.response.set_cookie('user', sig)
-        self.redirect('/')
+        self.redirect('/', True)
         return
