@@ -1,0 +1,9 @@
+.label {
+    font-size: .9em;
+    font-weight: normal;
+}
+
+.error {
+    border: #d9534f;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(217, 83, 79, 0.6)
+}
