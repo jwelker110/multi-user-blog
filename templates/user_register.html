@@ -5,11 +5,14 @@
 {% block content %}
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
-        <form method="post" action="/user/register">
-            {{ render_form(form, '', 'form-control') }}
-            <div class="form-group">
-                <input class="btn btn-default" type="submit" value="Submit">
-            </div>
-        </form>
+        <div class="col-xs-12">
+            <form method="post" action="/user/register">
+                {{ render_form(form, '', 'form-control') }}
+                <div class="form-group">
+                    <input class="btn btn-default" type="submit" value="Sign Up">
+                    <a href="/user/login" class="btn btn-default">Sign In</a>
+                </div>
+            </form>
+        </div>
     </div>
 {% endblock %}
