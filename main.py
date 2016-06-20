@@ -18,6 +18,7 @@ import webapp2
 
 from app.helpers import Helper, SECRET
 from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
+from app.blueprints.post import PostCreateHandler
 
 
 config = {'webapp2_extras.sessions': {
@@ -34,5 +35,6 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/user/register', RegisterHandler),
     ('/user/login', LoginHandler),
-    ('/user/logout', LogoutHandler)
+    ('/user/logout', LogoutHandler),
+    ('/post/create', PostCreateHandler)
 ], config=config, debug=True)
