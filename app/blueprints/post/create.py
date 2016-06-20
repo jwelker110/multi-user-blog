@@ -1,3 +1,5 @@
+from string import lower
+
 from app.helpers import Helper, flash
 from app.forms import PostForm
 from app.models import Post, User
@@ -59,8 +61,8 @@ class PostCreateHandler(Helper):
                 subject=form.subject.data,
                 content=form.content.data
             )
-            id = post.put()
-            self.redirect('/post/%s/view' % id, True)
+            post.put()
+            self.redirect('/post/%s/view' % post.title, True)
             return
         except:
             self.r(form)
