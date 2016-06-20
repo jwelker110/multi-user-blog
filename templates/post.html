@@ -3,13 +3,41 @@
 {% block title %}Blogger | View{% endblock %}
 
 {% block content %}
-    {% from "__formhelpers.html" import render_form %}
-    <div class="row">
-        <form method="post" action="/user/login">
-            {{ render_form(form, '', 'form-control') }}
-            <div class="form-group">
-                <input class="btn btn-default" type="submit" value="Submit">
+    {% if post %}
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ post.title }}</h1>
+                <h5>By <a class="link-author" href="/author/{{ post.author }}/view"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
             </div>
-        </form>
-    </div>
+            <div class="col-md-12">
+                <p>{{ post.content }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if comments %}
+        <div class="row">
+        {% for c in comments %}
+            <div class="col-xs-12">
+                <div class="comment">
+
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if user and post %}
+        {% from "__formhelpers.html" import render_form %}
+        <div class="row">
+            <div class="col-xs-12">
+                <form method="post" action="/post/{{ post.title }}/comment/create">
+                    {{ render_form(form, '', 'form-control') }}
+                    <div class="form-group">
+                        <input class="btn btn-default" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
