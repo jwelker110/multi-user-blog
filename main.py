@@ -16,14 +16,16 @@
 #
 import webapp2
 
-from app.helpers import Helper, SECRET
+from app.helpers import Helper, SECRET, J, datetimefilter
 from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
-from app.blueprints.post import PostCreateHandler
+from app.blueprints.post import PostCreateHandler, PostHandler
 
 
 config = {'webapp2_extras.sessions': {
     'secret_key': SECRET,
 }}
+
+J.filters['datetime'] = datetimefilter
 
 
 class MainHandler(Helper):
@@ -36,5 +38,6 @@ app = webapp2.WSGIApplication([
     ('/user/register', RegisterHandler),
     ('/user/login', LoginHandler),
     ('/user/logout', LogoutHandler),
-    ('/post/create', PostCreateHandler)
+    ('/post/create', PostCreateHandler),
+    (r'/post/.*/view', PostHandler)
 ], config=config, debug=True)
