@@ -49,7 +49,7 @@ class Helper(webapp2.RequestHandler):
     def validate_sig(self):
         h = self.request.cookies.get('user', '')
         data = h.split('|')[0]
-        if h == '' or h != sha256(data + SECRET).hexdigest():
+        if h == '' or h != data + '|' + sha256(data + SECRET).hexdigest():
             self.invalidate_sig()
             return False
         return True
