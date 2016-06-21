@@ -28,6 +28,7 @@ class PostCreateHandler(Helper):
         # validate the cookie itself, since we need to be sure
         # they are who they say they are
         if not self.validate_sig():
+            self.invalidate_sig()
             self.redirect('/user/login', True)
             return
         user = self.retrieve_sig_data()
@@ -42,10 +43,14 @@ class PostCreateHandler(Helper):
         # validate csrf
         if not self.validate_csrf(form.csrf_token.data):
             form.csrf_token.data = self.generate_csrf()
-            self.r(form)
+            self.r(form, flashes=flash('Please submit the form again.'))
             return
 
         author = User.query(User.username == user).get()
+        if author is None:
+            self.invalidate_sig()
+            self.r(form, flashes=flash('Please sign back in and try again'))
+            return
         # check if this post has been created before
         exists = Post.query(Post.title_lower == lower(form.title.data)).get()
         if exists is not None:
@@ -64,7 +69,8 @@ class PostCreateHandler(Helper):
             post.put()
             self.redirect('/post/%s/view' % post.title, True)
             return
-        except:
+        except Exception as e:
+            print e.message
             self.r(form)
             return
 
