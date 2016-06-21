@@ -37,6 +37,7 @@ class MainHandler(Helper):
 
 app = webapp2.WSGIApplication([
     ('/', DefaultHandler),
+    (r'/author/.*', AuthorHandler),
     ('/user/register', RegisterHandler),
     ('/user/login', LoginHandler),
     ('/user/logout', LogoutHandler),
