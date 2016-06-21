@@ -1,1 +1,2 @@
-from create import CreateHandler
+from create import PostCreateHandler
+from view import PostHandler
