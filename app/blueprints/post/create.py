@@ -35,6 +35,13 @@ class PostCreateHandler(Helper):
 
         form = PostForm(self.request.params)
 
+        # check if the person exists in the db or not
+        author = User.query(User.username == user).get()
+        if author is None:
+            self.invalidate_sig()
+            self.redirect('/user/login', True)
+            return
+
         # validate form
         if not form.validate():
             self.r(form)
@@ -46,11 +53,6 @@ class PostCreateHandler(Helper):
             self.r(form, flashes=flash('Please submit the form again.'))
             return
 
-        author = User.query(User.username == user).get()
-        if author is None:
-            self.invalidate_sig()
-            self.r(form, flashes=flash('Please sign back in and try again'))
-            return
         # check if this post has been created before
         exists = Post.query(Post.title_lower == lower(form.title.data)).get()
         if exists is not None:
@@ -63,6 +65,7 @@ class PostCreateHandler(Helper):
                 title=form.title.data,
                 title_lower=lower(form.title.data),
                 author=author.username,
+                author_lower=author.username_lower,
                 subject=form.subject.data,
                 content=form.content.data
             )
