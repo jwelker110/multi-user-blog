@@ -36,7 +36,7 @@ class PostCreateHandler(Helper):
         form = PostForm(self.request.params)
 
         # check if the person exists in the db or not
-        author = User.query(User.username == user).get()
+        author = User.query(User.username_lower == lower(user)).get()
         if author is None:
             self.invalidate_sig()
             self.redirect('/user/login', True)
