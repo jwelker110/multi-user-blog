@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Blogger{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{{ title }} Posts</h1>
+            {% if posts %}
+            {% for p in posts %}
+
+            <div class="post-recent">
+                <a href="/post/{{ p.title }}/view">{{ p.title }}</a> - {{ p.created | datetime }}
+                <p>{{ p.content | shorten }}</p>
+            </div>
+
+            {% endfor %}
+
+                {% if offset > 0 %}
+                <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
+                {% endif %}
+                <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
+            {% else %}
+                <p>There don't seem to be any posts associated with this user.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
