@@ -1,3 +1,4 @@
+from urllib import unquote
 from string import lower
 
 from app.helpers import Helper
@@ -13,7 +14,7 @@ class PostHandler(Helper):
 
     def get(self):
         title = self.request.path.split('/')[2]
-        print title
+        title = unquote(title)
 
         form = CommentForm(data={'csrf_token': self.generate_csrf()})
 
