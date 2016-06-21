@@ -16,9 +16,10 @@
 #
 import webapp2
 
-from app.helpers import Helper, SECRET, J, datetimefilter
+from app.helpers import Helper, SECRET, J, datetimefilter, shortenfilter
 from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
 from app.blueprints.post import PostCreateHandler, PostHandler
+from app.blueprints.filter import DefaultHandler, AuthorHandler
 
 
 config = {'webapp2_extras.sessions': {
@@ -26,6 +27,7 @@ config = {'webapp2_extras.sessions': {
 }}
 
 J.filters['datetime'] = datetimefilter
+J.filters['shorten'] = shortenfilter
 
 
 class MainHandler(Helper):
@@ -34,7 +36,7 @@ class MainHandler(Helper):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
+    ('/', DefaultHandler),
     ('/user/register', RegisterHandler),
     ('/user/login', LoginHandler),
     ('/user/logout', LogoutHandler),
