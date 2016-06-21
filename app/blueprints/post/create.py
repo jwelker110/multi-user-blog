@@ -54,7 +54,7 @@ class PostCreateHandler(Helper):
         # check if this post has been created before
         exists = Post.query(Post.title_lower == lower(form.title.data)).get()
         if exists is not None:
-            self.r(form, flashes=flash('A post with this title already exists.'))
+            self.r(form, flashes=flash('Your title must be unique.', 'warning'))
             return
 
         try:
@@ -67,7 +67,8 @@ class PostCreateHandler(Helper):
                 content=form.content.data
             )
             post.put()
-            self.redirect('/post/%s/view' % post.title, True)
+            self.r(PostForm(data={'csrf_token': self.generate_csrf()}),
+                   flashes=flash('Your new post can be viewed <a href="/post/%s/view">here</a>.' % post.title, 'success'))
             return
         except Exception as e:
             print e.message
