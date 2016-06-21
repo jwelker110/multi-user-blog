@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>{{ post.title }}</h1>
-                <h5>By <a class="link-author" href="/author/{{ post.author }}/view"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
+                <h5>By <a class="link-author" href="/user/{{ post.author }}/posts"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
             </div>
             <div class="col-md-12">
                 <p>{{ post.content }}</p>
@@ -20,7 +20,8 @@
         {% for c in comments %}
             <div class="col-xs-12">
                 <div class="comment">
-
+                    <h3>{{ c.author }} commented {{ c.created | datetime }}</h3>
+                    <p>{{ c.content }}</p>
                 </div>
             </div>
         {% endfor %}
