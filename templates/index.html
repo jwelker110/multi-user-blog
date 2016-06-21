@@ -14,12 +14,14 @@
                 <p>{{ p.content | shorten }}</p>
             </div>
 
-
             {% endfor %}
+
                 {% if offset > 0 %}
                 <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
                 {% endif %}
                 <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
+            {% else %}
+                <p>There don't seem to be any posts. Why not <a href="/post/create">create</a> one?</p>
             {% endif %}
         </div>
     </div>
