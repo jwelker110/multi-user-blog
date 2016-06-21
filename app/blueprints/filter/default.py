@@ -17,7 +17,7 @@ class DefaultHandler(Helper):
         posts = Post.query().order(-Post.created).fetch(limit, offset=offset)
 
         if len(posts) is 0 and offset > 0:
-            flashes = flash('No more posts available')
+            flashes = flash('No more posts available.')
             offset -= limit
             posts = Post.query().order(-Post.created).fetch(limit, offset=offset)
 
