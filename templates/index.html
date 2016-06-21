@@ -3,5 +3,24 @@
 {% block title %}Blogger{% endblock %}
 
 {% block content %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Most Recent Posts</h1>
+            {% if posts %}
+            {% for p in posts %}
 
+            <div class="post-recent">
+                <a href="/post/{{ p.title }}/view">{{ p.title }}</a> - By {{ p.author }} {{ p.created | datetime }}
+                <p>{{ p.content | shorten }}</p>
+            </div>
+
+
+            {% endfor %}
+                {% if offset > 0 %}
+                <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
+                {% endif %}
+                <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
