@@ -15,10 +15,11 @@
 # limitations under the License.
 #
 import webapp2
+from google.appengine.ext.ndb import toplevel
 
 from app.helpers import Helper, SECRET, J, datetimefilter, shortenfilter
 from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
-from app.blueprints.post import PostCreateHandler, PostHandler
+from app.blueprints.post import PostCreateHandler, PostEditHandler, PostHandler
 from app.blueprints.filter import DefaultHandler, AuthorHandler
 
 
@@ -42,5 +43,6 @@ app = webapp2.WSGIApplication([
     ('/user/login', LoginHandler),
     ('/user/logout', LogoutHandler),
     ('/post/create', PostCreateHandler),
+    (r'/post/.*/edit', PostEditHandler),
     (r'/post/.*/view', PostHandler)
 ], config=config, debug=True)
