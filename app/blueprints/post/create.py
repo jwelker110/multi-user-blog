@@ -1,4 +1,5 @@
 from string import lower
+import re
 
 from app.helpers import Helper, flash
 from app.forms import PostForm
@@ -61,9 +62,11 @@ class PostCreateHandler(Helper):
 
         try:
             # let's create the post
+            t = form.title.data
+            t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
             post = Post(
-                title=form.title.data,
-                title_lower=lower(form.title.data),
+                title=t,
+                title_lower=lower(t),
                 author=author.username,
                 author_lower=author.username_lower,
                 subject=form.subject.data,
