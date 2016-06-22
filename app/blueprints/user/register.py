@@ -58,10 +58,9 @@ class RegisterHandler(Helper):
 
             user.put()
             # the user has been created, sign them in
-            self.session['user'] = user.username_lower
+            self.session['user'] = user.username
             # create a hash with our secret so we know the cookie is legit later
-            sig = self.generate_sig(user.username_lower)
-            self.response.set_cookie('user', sig)
+            self.generate_sig(user.username)
             self.redirect('/', True)
             return
         except:  # guess something happened eh?
