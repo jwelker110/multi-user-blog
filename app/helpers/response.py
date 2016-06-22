@@ -32,6 +32,28 @@ class Helper(webapp2.RequestHandler):
         # Returns a session using the default cookie key.
         return self.session_store.get_session()
 
+    def validate_user(self):
+        # make sure we are logged in right meow
+        # validate the cookie itself, since we need to be sure
+        # they are who they say they are
+        if not self.validate_sig():
+            self.invalidate_sig()
+            self.redirect('/user/login', True)
+            return None
+        user = self.retrieve_sig_data()
+
+        sess_user = self.session.get('user')
+        if sess_user is None:
+            self.invalidate_sig()
+            self.redirect('/user/login', True)
+            return None
+        if user != sess_user:
+            # the user is not who they say they are
+            self.invalidate_sig()
+            self.redirect('user/login', True)
+            return None
+        return user
+
     def generate_csrf(self):
         token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in xrange(32))
         self.session['csrf_token'] = token
