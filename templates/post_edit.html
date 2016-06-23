@@ -3,4 +3,18 @@
 {% block title %}Blogger | Edit{% endblock %}
 
 {% block content %}
+    {% from "__formhelpers.html" import render_form %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>Edit {{ post.title }} *</h1>
+            <form method="post" action="/post/{{ post.title }}/edit">
+                {{ render_form(form, '', 'form-control') }}
+                <div class="form-group">
+                    <h5><em>* Changes may not take effect immediately</em></h5>
+                    <input class="btn btn-default" type="submit" value="Save Changes">
+                    <a href="/post/{{ post.title }}/view" class="btn btn-default">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
