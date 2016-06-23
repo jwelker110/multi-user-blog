@@ -6,11 +6,27 @@
     {% if post %}
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ post.title }}</h1>
+                <h1>{{ post.title }}
+                    <small>
+                        <a class="post-btn" href="/post/{{ post.title }}/edit" title="Edit Post">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a class="post-btn" href="/post/{{ post.title }}/delete" title="Delete Post">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </small>
+                </h1>
                 <h5>By <a class="link-author" href="/user/{{ post.author }}/posts"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
             </div>
             <div class="col-md-12">
                 <p>{{ post.content }}</p>
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <h1>That post doesn't seem to exist</h1>
+                <h5>If you just created it, try again in a few minutes. Otherwise, go <a href="/">checkout</a> some other posts.</h5>
             </div>
         </div>
     {% endif %}
