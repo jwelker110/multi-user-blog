@@ -26,13 +26,10 @@ class PostCreateHandler(Helper):
 
     def post(self):
         # make sure we are logged in right meow
-        # validate the cookie itself, since we need to be sure
-        # they are who they say they are
-        if not self.validate_sig():
-            self.invalidate_sig()
+        user = self.validate_user()
+        if user is None:
             self.redirect('/user/login', True)
             return
-        user = self.retrieve_sig_data()
 
         form = PostForm(self.request.params)
 
