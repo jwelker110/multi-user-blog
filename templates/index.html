@@ -10,7 +10,8 @@
             {% for p in posts %}
 
             <div class="post-recent">
-                <a href="/post/{{ p.title }}/view">{{ p.title }}</a> - By {{ p.author }} {{ p.created | datetime }}
+                <a href="/post/{{ p.title }}/view">{{ p.title }}</a>
+                <h4>By {{ p.author }} {{ p.created | datetime }}</h4>
                 <p>{{ p.content | shorten }}</p>
             </div>
 
