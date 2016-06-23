@@ -20,7 +20,6 @@ class PostEditHandler(Helper):
         # make sure the user is the same we have on our session
         user = self.validate_user()
         if user is None:
-            self.invalidate_sig()
             self.redirect('/user/login', True)
             return
 
