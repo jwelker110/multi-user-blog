@@ -8,15 +8,15 @@
             <div class="col-md-12">
                 <h1>{{ post.title }}
                     <small>
-                        <a class="post-btn" href="/post/{{ post.title }}/edit" title="Edit Post">
+                        <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a class="post-btn" href="/post/{{ post.title }}/delete" title="Delete Post">
+                        <a class="post-btn" href="/post/delete?key={{ post.key.urlsafe() }}" title="Delete Post">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </small>
                 </h1>
-                <h5>By <a class="link-author" href="/user/{{ post.author }}/posts"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
+                <h5>By <a class="link-author" href="/author/{{ post.author }}"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
             </div>
             <div class="col-md-12">
                 <p>{{ post.content }}</p>
@@ -48,7 +48,7 @@
         {% from "__formhelpers.html" import render_form %}
         <div class="row">
             <div class="col-xs-12">
-                <form method="post" action="/post/{{ post.title }}/comment/create">
+                <form method="post" action="/comment/create?key={{ post.key.urlsafe() }}">
                     {{ render_form(form, '', 'form-control') }}
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" value="Submit">

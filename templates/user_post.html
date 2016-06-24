@@ -7,11 +7,11 @@
         <div class="col-xs-12">
             <h1>Posts by {{ title }}</h1>
             {% if posts %}
-            {% for p in posts %}
+            {% for post in posts %}
 
             <div class="post-recent">
-                <a href="/post/{{ p.title }}/view">{{ p.title }}</a> - {{ p.created | datetime }}
-                <p>{{ p.content | shorten }}</p>
+                <a href="/post/view?key={{ post.key.urlsafe() }}">{{ post.title }}</a> - {{ post.created | datetime }}
+                <p>{{ post.content | shorten }}</p>
             </div>
 
             {% endfor %}

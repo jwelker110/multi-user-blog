@@ -5,10 +5,12 @@
 {% block content %}
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
-        <form method="post" action="/user/login">
+        <h1>Delete {{ post.title }}?</h1>
+        <form method="post" action="/post/delete">
             {{ render_form(form, '', 'form-control') }}
             <div class="form-group">
-                <input class="btn btn-default" type="submit" value="Submit">
+                <input class="btn btn-default" type="submit" value="Delete">
+                <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-default">Cancel</a>
             </div>
         </form>
     </div>
