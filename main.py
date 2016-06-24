@@ -20,7 +20,7 @@ from app.helpers import Helper, SECRET, J, datetimefilter, shortenfilter
 from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
 from app.blueprints.post import PostCreateHandler, PostEditHandler, PostHandler, PostDeleteHandler
 from app.blueprints.filter import DefaultHandler, AuthorHandler
-from app.blueprints.comment import CommentCreateHandler, CommentDeleteHandler
+from app.blueprints.comment import CommentCreateHandler, CommentEditHandler, CommentDeleteHandler
 
 
 config = {'webapp2_extras.sessions': {
@@ -47,5 +47,6 @@ app = webapp2.WSGIApplication([
     ('/post/edit', PostEditHandler),
     ('/post/delete', PostDeleteHandler),
     ('/comment/create', CommentCreateHandler),
+    ('/comment/edit', CommentEditHandler),
     ('/comment/delete', CommentDeleteHandler)
 ], config=config, debug=True)
