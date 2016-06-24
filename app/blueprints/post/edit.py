@@ -1,12 +1,10 @@
 from string import lower
-from urllib import unquote
 import re
 
 from google.appengine.ext.ndb import Key
 
 from app.helpers import Helper, flash
 from app.forms import PostEditForm
-from app.models import Post
 
 
 temp = 'post_edit.html'
@@ -24,15 +22,13 @@ class PostEditHandler(Helper):
             return
 
         # get the title of the post
-        title = self.request.path.split('/')[2]
-        title = unquote(title)
+        k = self.request.get('key')
 
         # get the post please
-        post = Post.query(Post.title_lower == lower(title)).get()
+        post = Key(urlsafe=k).get()
         if post is None:
             self.r(flashes=flash('Post does not exist'))
             return
-        k = post.key.urlsafe()
 
         # check if the user is the owner or not
         if post.author != user:
@@ -59,6 +55,17 @@ class PostEditHandler(Helper):
 
         form = PostEditForm(self.request.params)
 
+        # validate csrf
+        if not self.validate_csrf(form.csrf_token.data):
+            form.csrf_token.data = self.generate_csrf()
+            self.r(form, flashes=flash('Please submit the form again.'))
+            return
+
+        # validate form
+        if not form.validate():
+            self.r(form)
+            return
+
         # get the post please
         post = Key(urlsafe=form.key.data).get()
         if post is None:
@@ -68,17 +75,6 @@ class PostEditHandler(Helper):
         # check if the user is the owner or not
         if post.author != user:
             self.redirect('/', True)
-            return
-
-        # validate form
-        if not form.validate():
-            self.r(form)
-            return
-
-        # validate csrf
-        if not self.validate_csrf(form.csrf_token.data):
-            form.csrf_token.data = self.generate_csrf()
-            self.r(form, flashes=flash('Please submit the form again.'))
             return
 
         try:

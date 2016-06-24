@@ -1,8 +1,7 @@
-from urllib import unquote
-from string import lower
+from google.appengine.ext.ndb import Key
 
 from app.helpers import Helper
-from app.models import Post, Comment
+from app.models import Comment
 from app.forms import CommentForm
 
 temp = 'post.html'
@@ -13,12 +12,11 @@ class PostHandler(Helper):
         self.render(template, form=form, post=post, comments=comments, **kw)
 
     def get(self):
-        title = self.request.path.split('/')[2]
-        title = unquote(title)
+        k = self.request.get('key')
 
         form = CommentForm(data={'csrf_token': self.generate_csrf()})
 
-        post = Post.query(Post.title_lower == lower(title)).get()
+        post = Key(urlsafe=k).get()
         comments = None
         if post is not None:
             comments = Comment.query(ancestor=post.key).fetch()
