@@ -22,7 +22,10 @@ class PostEditHandler(Helper):
             return
 
         # get the title of the post
-        k = self.request.get('key')
+        k = self.request.get('key', None)
+        if k is None:
+            self.redirect('/', True)
+            return
 
         # get the post please
         post = Key(urlsafe=k).get()

@@ -1,7 +1,8 @@
-from google.appengine.ext.ndb import Key
+from google.appengine.ext.ndb import Key, put_multi, delete_multi
 
 from app.helpers import Helper, flash
 from app.forms import PostDeleteForm
+from app.models import Comment
 
 temp = 'post_delete.html'
 
@@ -17,7 +18,11 @@ class PostDeleteHandler(Helper):
             return
 
         # grab title from URL
-        k = self.request.get('key')
+        k = self.request.get('key', None)
+        print k
+        if k is None:
+            self.redirect('/', True)
+            return
 
         # does the post actually exist??
         post = Key(urlsafe=k).get()
@@ -68,11 +73,18 @@ class PostDeleteHandler(Helper):
             return
 
         # everything checks out so let's remove the post
+        # first though, we need to remove the comments
+        # assoc with the post
+        comments = Comment.query(ancestor=post.key).fetch()
+        ks = put_multi(comments)
+        delete_multi(ks)
+        return
+
         try:
-            post.delete()
+            post.key.delete()
             self.redirect('/', True)
             return
         except Exception as e:
             form.csrf_token.data = self.generate_csrf()
-            self.r(form, post, flashes=flash(e.message))
+            self.r(form, post, flashes=flash())
             return

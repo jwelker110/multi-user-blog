@@ -12,7 +12,10 @@ class PostHandler(Helper):
         self.render(template, form=form, post=post, comments=comments, **kw)
 
     def get(self):
-        k = self.request.get('key')
+        k = self.request.get('key', None)
+        if k is None:
+            self.redirect('/', True)
+            return
 
         form = CommentForm(data={
             'key': k,
