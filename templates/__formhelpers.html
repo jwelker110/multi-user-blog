@@ -13,7 +13,9 @@
 {% endmacro %}
 
 {% macro render_form(form, label_class, field_class) %}
+    {% if form.csrf_token %}
     {{ form.csrf_token }}
+    {% endif %}
     {% if form.key %}
         {{ form.key }}
     {% endif %}
