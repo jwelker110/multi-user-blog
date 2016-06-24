@@ -27,3 +27,8 @@ class PostEditForm(Form):
                              validators.required(message='Please enter some content for the post.')])
     key = HiddenField()
     csrf_token = HiddenField()
+
+
+class PostDeleteForm(Form):
+    key = HiddenField()
+    csrf_token = HiddenField()
