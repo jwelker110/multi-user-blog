@@ -78,7 +78,6 @@ class PostDeleteHandler(Helper):
         comments = Comment.query(ancestor=post.key).fetch()
         ks = put_multi(comments)
         delete_multi(ks)
-        return
 
         try:
             post.key.delete()
