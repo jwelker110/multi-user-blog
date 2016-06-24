@@ -5,15 +5,14 @@
 {% block content %}
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
-        {% if post %}
-        <h1>Delete {{ post.title }}?</h1>
-        <form method="post" action="/post/delete">
+        <h1>Delete your comment?</h1>
+        <p>{{ comment.content }}</p>
+        <form method="post" action="/comment/delete">
             {{ render_form(form, '', 'form-control') }}
             <div class="form-group">
                 <input class="btn btn-default" type="submit" value="Delete">
                 <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-default">Cancel</a>
             </div>
         </form>
-        {% endif %}
     </div>
 {% endblock %}
