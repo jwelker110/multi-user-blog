@@ -66,7 +66,7 @@ class PostCreateHandler(Helper):
             )
             post.put()
             self.r(PostForm(data={'csrf_token': self.generate_csrf()}),
-                   flashes=flash('Your new post can be viewed <a href="/post/%s/view">here</a>.' % post.title, 'success'))
+                   flashes=flash('Your new post can be viewed <a href="/post/view?key=%s">here</a>.' % post.key.urlsafe(), 'success'))
             return
         except Exception as e:
             print e.message
