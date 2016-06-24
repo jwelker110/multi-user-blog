@@ -9,3 +9,8 @@ class CommentForm(Form):
                              validators.required(message='Please enter your comment.')])
     key = HiddenField()
     csrf_token = HiddenField()
+
+
+class CommentDeleteForm(Form):
+    key = HiddenField()
+    csrf_token = HiddenField()
