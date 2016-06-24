@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1>{{ post.title }}
+                    {% if post.author == user %}
                     <small>
                         <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
                             <span class="glyphicon glyphicon-pencil"></span>
@@ -15,6 +16,7 @@
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </small>
+                    {% endif %}
                 </h1>
                 <h5>By <a class="link-author" href="/author/{{ post.author }}"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
             </div>
@@ -36,7 +38,19 @@
         {% for c in comments %}
             <div class="col-xs-12">
                 <div class="comment">
-                    <h3>{{ c.author }} commented {{ c.created | datetime }}</h3>
+                    <h3>
+                        {{ c.author }} commented {{ c.created | datetime }}
+                        {% if c.author == user %}
+                        <small>
+                            <a class="post-btn" href="/comment/edit?key={{ c.key.urlsafe() }}" title="Edit Comment">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            <a class="post-btn" href="/comment/delete?key={{ c.key.urlsafe() }}" title="Delete Comment">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </small>
+                        {% endif %}
+                    </h3>
                     <p>{{ c.content }}</p>
                 </div>
             </div>
@@ -48,7 +62,7 @@
         {% from "__formhelpers.html" import render_form %}
         <div class="row">
             <div class="col-xs-12">
-                <form method="post" action="/comment/create?key={{ post.key.urlsafe() }}">
+                <form method="post" action="/comment/create">
                     {{ render_form(form, '', 'form-control') }}
                     <div class="form-group">
                         <input class="btn btn-default" type="submit" value="Submit">
