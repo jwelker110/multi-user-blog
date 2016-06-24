@@ -54,12 +54,6 @@ class PostCreateHandler(Helper):
         t = form.title.data
         t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
 
-        # check if this post has been created before
-        exists = Post.query(Post.title_lower == lower(t)).get()
-        if exists is not None:
-            self.r(form, flashes=flash('Your title must be unique.', 'warning'))
-            return
-
         try:
             # let's create the post
             post = Post(
