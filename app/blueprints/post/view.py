@@ -14,10 +14,13 @@ class PostHandler(Helper):
     def get(self):
         k = self.request.get('key')
 
-        form = CommentForm(data={'csrf_token': self.generate_csrf()})
+        form = CommentForm(data={
+            'key': k,
+            'csrf_token': self.generate_csrf()
+        })
 
         post = Key(urlsafe=k).get()
         comments = None
         if post is not None:
-            comments = Comment.query(ancestor=post.key).fetch()
+            comments = Comment.query(ancestor=post.key).order(-Comment.created).fetch()
         self.r(form, post, comments)

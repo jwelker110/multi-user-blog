@@ -6,5 +6,6 @@ from lib.wtforms import validators
 class CommentForm(Form):
     comment = TextAreaField('Comment',
                             [validators.length(max=120, message='Comments must be less than 120 characters.'),
-                             validators.required(message='Please enter your message.')])
+                             validators.required(message='Please enter your comment.')])
+    key = HiddenField()
     csrf_token = HiddenField()
