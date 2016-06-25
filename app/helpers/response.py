@@ -38,19 +38,16 @@ class Helper(webapp2.RequestHandler):
         # they are who they say they are
         if not self.validate_sig():
             self.invalidate_sig()
-            self.redirect('/user/login', True)
             return None
         user = self.retrieve_sig_data()
 
         sess_user = self.session.get('user')
         if sess_user is None:
             self.invalidate_sig()
-            self.redirect('/user/login', True)
             return None
         if user != sess_user:
             # the user is not who they say they are
             self.invalidate_sig()
-            self.redirect('user/login', True)
             return None
         return user
 
