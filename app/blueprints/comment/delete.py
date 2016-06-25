@@ -14,12 +14,12 @@ class CommentDeleteHandler(Helper):
         # is the user logged in???
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         k = self.request.get('key', None)
         if k is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         form = CommentDeleteForm(data={
@@ -31,13 +31,13 @@ class CommentDeleteHandler(Helper):
         comment = Key(urlsafe=k).get()
 
         if comment is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # grab the post
         post = comment.key.parent().get()
         if post is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         self.r(form, post, comment)
@@ -46,28 +46,28 @@ class CommentDeleteHandler(Helper):
         # make sure the user is logged in
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         form = CommentDeleteForm(self.request.params)
 
         if not form.validate():
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         comment = Key(urlsafe=form.key.data).get()
         if comment is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         if comment.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # alright let's delete the comment
         try:
             comment.key.delete()
-            self.redirect('/', True)
+            self.redirect('/')
             return
         except Exception as e:
             print e.message

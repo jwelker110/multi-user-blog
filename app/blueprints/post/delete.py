@@ -14,25 +14,25 @@ class PostDeleteHandler(Helper):
     def get(self):
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         # grab title from URL
         k = self.request.get('key', None)
         print k
         if k is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # does the post actually exist??
         post = Key(urlsafe=k).get()
         if post is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # the post exists, is it owned by the user?
         if post.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # owned by user and exists. Good.
@@ -46,7 +46,7 @@ class PostDeleteHandler(Helper):
     def post(self):
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
 
         form = PostDeleteForm(self.request.params)
 
@@ -59,17 +59,17 @@ class PostDeleteHandler(Helper):
         # get the post please
         post = Key(urlsafe=form.key.data).get()
         if post is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # the post exists, is it owned by the user?
         if post.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # check if the user is the owner or not
         if post.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # everything checks out so let's remove the post
@@ -81,7 +81,7 @@ class PostDeleteHandler(Helper):
 
         try:
             post.key.delete()
-            self.redirect('/', True)
+            self.redirect('/')
             return
         except Exception as e:
             form.csrf_token.data = self.generate_csrf()

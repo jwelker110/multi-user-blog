@@ -61,7 +61,7 @@ class RegisterHandler(Helper):
             self.session['user'] = user.username
             # create a hash with our secret so we know the cookie is legit later
             self.generate_sig(user.username)
-            self.redirect('/', True)
+            self.redirect('/')
             return
         except:  # guess something happened eh?
             self.r(form, flashes=flash())

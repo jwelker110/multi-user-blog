@@ -52,5 +52,5 @@ class LoginHandler(Helper):
         self.session['user'] = exists.username
         # create a hash with our secret so we know the cookie is legit later
         self.generate_sig(exists.username)
-        self.redirect('/', True)
+        self.redirect('/')
         return

@@ -18,13 +18,13 @@ class PostEditHandler(Helper):
         # make sure the user is the same we have on our session
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         # get the title of the post
         k = self.request.get('key', None)
         if k is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         # get the post please
@@ -35,7 +35,7 @@ class PostEditHandler(Helper):
 
         # check if the user is the owner or not
         if post.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         form = PostEditForm(data={
@@ -53,7 +53,7 @@ class PostEditHandler(Helper):
         user = self.validate_user()
         if user is None:
             self.invalidate_sig()
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         form = PostEditForm(self.request.params)
@@ -77,7 +77,7 @@ class PostEditHandler(Helper):
 
         # check if the user is the owner or not
         if post.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         try:
@@ -90,7 +90,7 @@ class PostEditHandler(Helper):
             post.content = form.content.data
             # going to grab the future object so we can block
             post.put()
-            self.redirect('/author/%s' % post.author, True)
+            self.redirect('/author/%s' % post.author)
             return
         except Exception as e:
             print e.message

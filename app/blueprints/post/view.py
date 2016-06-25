@@ -14,7 +14,7 @@ class PostHandler(Helper):
     def get(self):
         k = self.request.get('key', None)
         if k is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         form = CommentForm(data={

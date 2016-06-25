@@ -10,7 +10,7 @@ class CommentCreateHandler(Helper):
         # make sure our user is here
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         form = CommentForm(self.request.params)

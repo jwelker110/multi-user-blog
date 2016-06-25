@@ -17,7 +17,7 @@ class PostCreateHandler(Helper):
         # make sure we are logged in right meow
         user = self.session.get('user')
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         form = PostForm(data={'csrf_token': self.generate_csrf()})
@@ -28,7 +28,7 @@ class PostCreateHandler(Helper):
         # make sure we are logged in right meow
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         form = PostForm(self.request.params)
@@ -37,7 +37,7 @@ class PostCreateHandler(Helper):
         author = User.query(User.username_lower == lower(user)).get()
         if author is None:
             self.invalidate_sig()
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         # validate form

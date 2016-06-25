@@ -14,22 +14,22 @@ class CommentEditHandler(Helper):
         # check the user
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         # grab the comment key
         k = self.request.get('key', None)
         if k is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         comment = Key(urlsafe=k).get()
         if comment is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         if comment.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         post = comment.key.parent().get()
@@ -46,7 +46,7 @@ class CommentEditHandler(Helper):
         # check the user
         user = self.validate_user()
         if user is None:
-            self.redirect('/user/login', True)
+            self.redirect('/user/login')
             return
 
         # grab the form
@@ -59,22 +59,22 @@ class CommentEditHandler(Helper):
 
         comment = Key(urlsafe=form.key.data).get()
         if comment is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         if comment.author != user:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         post = comment.key.parent().get()
         if post is None:
-            self.redirect('/', True)
+            self.redirect('/')
             return
 
         try:
             comment.content = form.comment.data
             comment.put()
-            self.redirect('/post/view?key=%s' % post.key.urlsafe(), True)
+            self.redirect('/post/view?key=%s' % post.key.urlsafe())
             return
         except:
             self.r(form, flashes=flash())
