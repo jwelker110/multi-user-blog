@@ -13,7 +13,7 @@ class LoginHandler(Helper):
 
     def get(self):
         # make sure we aren't logged in right meow
-        user = self.session.get('user')
+        user = self.validate_user()
         if user is not None:
             self.redirect('/')
             return
