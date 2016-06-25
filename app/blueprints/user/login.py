@@ -1,7 +1,9 @@
+import re
 from string import lower
 
-from app.helpers import Helper, flash
-from app.models import User
+from google.appengine.ext.ndb import Key
+
+from app.helpers import Helper, flash, pw
 from app.forms import LoginForm
 
 temp = 'user_login.html'
@@ -43,14 +45,26 @@ class LoginHandler(Helper):
             return
 
         # check whether user account exists
-        exists = User.query(User.username_lower == lower(form.username.data)).get()
-        if exists is None:
+        username = form.username.data
+        username = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', username)
+
+        try:
+            user = Key("User", lower(username)).get()
+        except:
+            user = None
+
+        if user is None:
+            self.r(form, flashes=flash('Could not sign in. Verify username and password are correct and try again.'))
+            return
+
+        # check whether passwords are correct or not
+        if not pw.is_pw(form.password.data, user.password):
             self.r(form, flashes=flash('Could not sign in. Verify username and password are correct and try again.'))
             return
 
         # the user exists, sign them in.
-        self.session['user'] = exists.username
+        self.session['user'] = user.username
         # create a hash with our secret so we know the cookie is legit later
-        self.generate_sig(exists.username)
+        self.generate_sig(user.username)
         self.redirect('/')
         return

@@ -1,4 +1,7 @@
+import re
 from string import lower
+
+from google.appengine.ext.ndb import Key
 
 from app.helpers import Helper, flash, pw
 from app.models import User
@@ -43,19 +46,28 @@ class RegisterHandler(Helper):
             return
 
         # check for an existing account
-        exists = User.query(User.username_lower == lower(form.username.data)).get()
-        if exists is not None:
+        # using the lowercase username as a key
+        # to ensure users are unique
+        username = form.username.data
+        username = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', username)
+
+        try:
+            user = Key("User", lower(username)).get()
+        except:
+            user = None
+
+        # exists = User.query(User.username_lower == lower(form.username.data)).get()
+        if user is not None:
             self.r(form, flashes=flash('That username is taken'))
             return
 
         # create the user
         try:
             user = User(
-                username=form.username.data,
-                username_lower=lower(form.username.data),
+                username=username,
                 password=pw.gen_hash(form.password.data),
             )
-
+            user.key = Key("User", lower(user.username))
             user.put()
             # the user has been created, sign them in
             self.session['user'] = user.username
