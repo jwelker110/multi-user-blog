@@ -1,9 +1,11 @@
 from string import lower
 import re
 
+from google.appengine.ext.ndb import Key
+
 from app.helpers import Helper, flash
 from app.forms import PostForm
-from app.models import Post, User
+from app.models import Post
 
 
 temp = 'post_create.html'
@@ -34,8 +36,13 @@ class PostCreateHandler(Helper):
         form = PostForm(self.request.params)
 
         # check if the person exists in the db or not
-        author = User.query(User.username_lower == lower(user)).get()
-        if author is None:
+        try:
+            user = Key("User", lower(user)).get()
+        except:
+            user = None
+
+        # author = User.query(User.username_lower == lower(user)).get()
+        if user is None:
             self.invalidate_sig()
             self.redirect('/user/login')
             return
@@ -59,8 +66,8 @@ class PostCreateHandler(Helper):
             post = Post(
                 title=t,
                 title_lower=lower(t),
-                author=author.username,
-                author_lower=author.username_lower,
+                author=user.username,
+                author_lower=lower(user.username),
                 subject=form.subject.data,
                 content=form.content.data
             )

@@ -61,8 +61,7 @@ class PostDeleteHandler(Helper):
             post = Key(urlsafe=form.key.data).get()
         except:
             # key is invalid
-            self.r()
-            return
+            post = None
 
         if post is None:
             self.redirect('/')

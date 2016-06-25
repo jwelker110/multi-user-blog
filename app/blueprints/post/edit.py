@@ -32,8 +32,7 @@ class PostEditHandler(Helper):
             post = Key(urlsafe=k).get()
         except:
             # key is invalid
-            self.r()
-            return
+            post = None
 
         if post is None:
             self.r(flashes=flash('Post does not exist'))

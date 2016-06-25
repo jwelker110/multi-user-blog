@@ -24,8 +24,8 @@ class PostHandler(Helper):
         try:
             post = Key(urlsafe=k).get()
         except:
-            self.r()
-            return
+            post = None
+
         comments = None
         if post is not None:
             comments = Comment.query(ancestor=post.key).order(-Comment.created).fetch()

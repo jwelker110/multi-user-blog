@@ -26,8 +26,7 @@ class CommentCreateHandler(Helper):
             # grab the post
             post = Key(urlsafe=k).get()
         except:
-            self.redirect('/')
-            return
+            post = None
 
         if post is None:
             self.redirect(self.request.referer)
