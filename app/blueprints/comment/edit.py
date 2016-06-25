@@ -57,7 +57,14 @@ class CommentEditHandler(Helper):
             self.r(form)
             return
 
-        comment = Key(urlsafe=form.key.data).get()
+        try:
+            # get the comment
+            comment = Key(urlsafe=form.key.data).get()
+        except:
+            # invalid key
+            self.r()
+            return
+
         if comment is None:
             self.redirect('/')
             return

@@ -27,8 +27,14 @@ class PostEditHandler(Helper):
             self.redirect('/')
             return
 
-        # get the post please
-        post = Key(urlsafe=k).get()
+        try:
+            # get the post please
+            post = Key(urlsafe=k).get()
+        except:
+            # key is invalid
+            self.r()
+            return
+
         if post is None:
             self.r(flashes=flash('Post does not exist'))
             return

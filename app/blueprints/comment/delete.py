@@ -55,7 +55,13 @@ class CommentDeleteHandler(Helper):
             self.redirect('/')
             return
 
-        comment = Key(urlsafe=form.key.data).get()
+        try:
+            # grab the comment
+            comment = Key(urlsafe=form.key.data).get()
+        except:
+            # invalid key
+            self.r()
+            return
         if comment is None:
             self.redirect('/')
             return

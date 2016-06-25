@@ -56,8 +56,14 @@ class PostDeleteHandler(Helper):
             self.r(form, flashes=flash('Please submit the form again.'))
             return
 
-        # get the post please
-        post = Key(urlsafe=form.key.data).get()
+        try:
+            # get the post please
+            post = Key(urlsafe=form.key.data).get()
+        except:
+            # key is invalid
+            self.r()
+            return
+
         if post is None:
             self.redirect('/')
             return

@@ -21,8 +21,11 @@ class PostHandler(Helper):
             'key': k,
             'csrf_token': self.generate_csrf()
         })
-
-        post = Key(urlsafe=k).get()
+        try:
+            post = Key(urlsafe=k).get()
+        except:
+            self.r()
+            return
         comments = None
         if post is not None:
             comments = Comment.query(ancestor=post.key).order(-Comment.created).fetch()
