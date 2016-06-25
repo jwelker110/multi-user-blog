@@ -30,12 +30,6 @@ config = {'webapp2_extras.sessions': {
 J.filters['datetime'] = datetimefilter
 J.filters['shorten'] = shortenfilter
 
-
-class MainHandler(Helper):
-    def get(self):
-        self.render('index.html')
-
-
 app = webapp2.WSGIApplication([
     ('/', DefaultHandler),
     (r'/author/.*', AuthorHandler),
