@@ -2,7 +2,7 @@ from google.appengine.ext.ndb import Key, put_multi, delete_multi
 
 from app.helpers import Helper, flash
 from app.forms import PostDeleteForm
-from app.models import Comment
+from app.models import Comment, Like
 
 temp = 'post_delete.html'
 
@@ -79,9 +79,14 @@ class PostDeleteHandler(Helper):
 
         # everything checks out so let's remove the post
         # first though, we need to remove the comments
-        # assoc with the post
+        # assoc with the post and the likes
+        # TODO query these entities to make sure they are removed
         comments = Comment.query(ancestor=post.key).fetch()
         ks = put_multi(comments)
+        delete_multi(ks)
+
+        likes = Like.query(Like.post == post.key).fetch()
+        ks = put_multi(likes)
         delete_multi(ks)
 
         try:
