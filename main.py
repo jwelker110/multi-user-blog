@@ -21,6 +21,7 @@ from app.blueprints.user import RegisterHandler, LoginHandler, LogoutHandler
 from app.blueprints.post import PostCreateHandler, PostEditHandler, PostHandler, PostDeleteHandler
 from app.blueprints.filter import DefaultHandler, AuthorHandler
 from app.blueprints.comment import CommentCreateHandler, CommentEditHandler, CommentDeleteHandler
+from app.blueprints.like import LikeHandler
 
 
 config = {'webapp2_extras.sessions': {
@@ -38,6 +39,7 @@ app = webapp2.WSGIApplication([
     ('/user/logout', LogoutHandler),
     ('/post/create', PostCreateHandler),
     ('/post/view', PostHandler),
+    ('/post/like', LikeHandler),
     ('/post/edit', PostEditHandler),
     ('/post/delete', PostDeleteHandler),
     ('/comment/create', CommentCreateHandler),
