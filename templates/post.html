@@ -3,10 +3,29 @@
 {% block title %}Blogger | View{% endblock %}
 
 {% block content %}
+    {% from "__formhelpers.html" import render_form %}
     {% if post %}
+        {% if user and post.author != user %}
+            <div class="row">
+            {% if liked is not none %}
+            <div class="col-xs-12">
+                <form method="post" action="/post/like">
+                    {{ render_form(likeForm, '', 'form-control') }}
+                    <div class="form-group">
+                    {% if liked.liked %}
+                        <input class="btn btn-default" type="submit" value="Unlike"/>
+                    {% else %}
+                        <input class="btn btn-default" type="submit" value="Like"/>
+                    {% endif %}
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
         <div class="row">
             <div class="col-md-12">
-                <h1>{{ post.title }}
+                <h1>{{ post.title }} <small>{{ post.likes }} people like this.</small>
                     {% if post.author == user %}
                     <small>
                         <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
@@ -29,6 +48,20 @@
             <div class="col-md-12">
                 <h1>That post doesn't seem to exist</h1>
                 <h5>If you just created it, try again in a few minutes. Otherwise, go <a href="/">checkout</a> some other posts.</h5>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if user and post %}
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Leave a comment</h3>
+                <form method="post" action="/comment/create">
+                    {{ render_form(form, '', 'form-control') }}
+                    <div class="form-group">
+                        <input class="btn btn-default" type="submit" value="Submit">
+                    </div>
+                </form>
             </div>
         </div>
     {% endif %}
@@ -58,17 +91,4 @@
         </div>
     {% endif %}
 
-    {% if user and post %}
-        {% from "__formhelpers.html" import render_form %}
-        <div class="row">
-            <div class="col-xs-12">
-                <form method="post" action="/comment/create">
-                    {{ render_form(form, '', 'form-control') }}
-                    <div class="form-group">
-                        <input class="btn btn-default" type="submit" value="Submit">
-                    </div>
-                </form>
-            </div>
-        </div>
-    {% endif %}
 {% endblock %}
