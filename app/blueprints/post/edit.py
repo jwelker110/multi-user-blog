@@ -3,7 +3,7 @@ import re
 
 from google.appengine.ext.ndb import Key
 
-from app.helpers import Helper, flash
+from app.helpers import Helper, flash, user_required
 from app.forms import PostEditForm
 
 
@@ -14,13 +14,8 @@ class PostEditHandler(Helper):
     def r(self, form=None, post=None, template=temp, **kw):
         self.render(template, form=form, post=post, **kw)
 
-    def get(self):
-        # make sure the user is the same we have on our session
-        user = self.validate_user()
-        if user is None:
-            self.redirect('/user/login')
-            return
-
+    @user_required()
+    def get(self, user):
         # get the title of the post
         k = self.request.get('key', None)
         if k is None:
@@ -34,6 +29,7 @@ class PostEditHandler(Helper):
             # key is invalid
             post = None
 
+        # unnatural nav
         if post is None:
             self.r(flashes=flash('Post does not exist'))
             return
@@ -43,6 +39,7 @@ class PostEditHandler(Helper):
             self.redirect('/')
             return
 
+        # get the form ready
         form = PostEditForm(data={
             'csrf_token': self.generate_csrf(),
             'key': k,
@@ -53,14 +50,9 @@ class PostEditHandler(Helper):
 
         self.r(form, post)
 
-    def post(self):
-        # make sure the user is who we think
-        user = self.validate_user()
-        if user is None:
-            self.invalidate_sig()
-            self.redirect('/user/login')
-            return
-
+    @user_required()
+    def post(self, user):
+        # grab the form
         form = PostEditForm(self.request.params)
 
         # validate csrf
@@ -93,11 +85,10 @@ class PostEditHandler(Helper):
             post.title_lower = lower(t)
             post.subject = form.subject.data
             post.content = form.content.data
-            # going to grab the future object so we can block
             post.put()
             self.redirect('/author/%s' % post.author)
             return
         except Exception as e:
-            print e.message
+            form.csrf_token.data = self.generate_csrf()
             self.r(form)
             return

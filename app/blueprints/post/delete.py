@@ -1,6 +1,6 @@
 from google.appengine.ext.ndb import Key, put_multi, delete_multi
 
-from app.helpers import Helper, flash
+from app.helpers import Helper, flash, user_required
 from app.forms import PostDeleteForm
 from app.models import Comment, Like
 
@@ -11,15 +11,12 @@ class PostDeleteHandler(Helper):
     def r(self, form=None, post=None, template=temp, **kw):
         self.render(template, form=form, post=post, **kw)
 
-    def get(self):
-        user = self.validate_user()
-        if user is None:
-            self.redirect('/user/login')
-            return
-
+    @user_required()
+    def get(self, user):
         # grab title from URL
         k = self.request.get('key', None)
-        print k
+
+        # no key? no problem
         if k is None:
             self.redirect('/')
             return
@@ -43,11 +40,9 @@ class PostDeleteHandler(Helper):
 
         self.r(form, post)
 
-    def post(self):
-        user = self.validate_user()
-        if user is None:
-            self.redirect('/user/login')
-
+    @user_required()
+    def post(self, user):
+        # grab the form
         form = PostDeleteForm(self.request.params)
 
         # validate csrf
@@ -56,13 +51,14 @@ class PostDeleteHandler(Helper):
             self.r(form, flashes=flash('Please submit the form again.'))
             return
 
+        # get the post please
         try:
-            # get the post please
             post = Key(urlsafe=form.key.data).get()
         except:
-            # key is invalid
             post = None
 
+        # as usual, this really shouldn't
+        # be None unless unnatural navigation
         if post is None:
             self.redirect('/')
             return
@@ -89,11 +85,14 @@ class PostDeleteHandler(Helper):
         ks = put_multi(likes)
         delete_multi(ks)
 
+        # got everything else removed, let's
+        # remove the post
         try:
             post.key.delete()
             self.redirect('/')
             return
         except Exception as e:
+            # let them try again
             form.csrf_token.data = self.generate_csrf()
             self.r(form, post, flashes=flash())
             return

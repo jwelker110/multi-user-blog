@@ -3,7 +3,7 @@ import re
 
 from google.appengine.ext.ndb import Key
 
-from app.helpers import Helper, flash
+from app.helpers import Helper, flash, user_required
 from app.forms import PostForm
 from app.models import Post
 
@@ -15,24 +15,16 @@ class PostCreateHandler(Helper):
     def r(self, form=None, template=temp, **kw):
         self.render(template, form=form, **kw)
 
-    def get(self):
-        # make sure we are logged in right meow
-        user = self.session.get('user')
-        if user is None:
-            self.redirect('/user/login')
-            return
-
+    @user_required()
+    def get(self, user):
+        # create the form
         form = PostForm(data={'csrf_token': self.generate_csrf()})
 
         self.r(form)
 
-    def post(self):
-        # make sure we are logged in right meow
-        user = self.validate_user()
-        if user is None:
-            self.redirect('/user/login')
-            return
-
+    @user_required()
+    def post(self, user):
+        # grab the form
         form = PostForm(self.request.params)
 
         # check if the person exists in the db or not
@@ -41,7 +33,8 @@ class PostCreateHandler(Helper):
         except:
             user = None
 
-        # author = User.query(User.username_lower == lower(user)).get()
+        # shouldn't be None if we got this far
+        # but check anyway
         if user is None:
             self.invalidate_sig()
             self.redirect('/user/login')
@@ -58,6 +51,7 @@ class PostCreateHandler(Helper):
             self.r(form, flashes=flash('Please submit the form again.'))
             return
 
+        # sanitize. Can't have chars that mess with the url
         t = form.title.data
         t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
 
@@ -72,11 +66,13 @@ class PostCreateHandler(Helper):
                 content=form.content.data
             )
             post.put()
+            # maybe they want to create another post?
             self.r(PostForm(data={'csrf_token': self.generate_csrf()}),
                    flashes=flash('Your new post can be viewed <a href="/post/view?key=%s">here</a>.' % post.key.urlsafe(), 'success'))
             return
         except Exception as e:
-            print e.message
+            # give them another chance
+            form.csrf_token.data = self.generate_csrf()
             self.r(form)
             return
 
