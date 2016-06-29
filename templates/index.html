@@ -11,19 +11,24 @@
 
             <div class="post-recent">
                 <h3 class="post-recent-title">{{ p.title }}</h3>
-                <h5 class="post-recent-details">By {{ p.author }} {{ p.created | datetime }}</h5>
+                <h5 class="post-recent-details">{{ p.author }} - {{ p.created | datetime }}</h5>
                 <p class="post-recent-content">{{ p.content | shorten }}</p>
                 <a href="/post/view?key={{ p.key.urlsafe() }}" class="post-recent-read-more">Read More...</a>
             </div>
             <hr>
             {% endfor %}
-
+        </div>
+        <div class="col-xs-12">
+            <div class="container-pager">
                 {% if offset > 0 %}
-                <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
+                    <a href="/?offset={{ offset - limit }}" class="btn btn-default" title="Previous Page">&lt;&lt;</a>
                 {% else %}
                     <a href="#" class="btn btn-default btn-inactive">&lt;&lt;</a>
                 {% endif %}
-                <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
+                <a href="/?offset={{ offset + limit }}" class="btn btn-default" title="Next Page">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="col-xs-12">
             {% else %}
                 <p>There don't seem to be any posts. Why not <a href="/post/create">create</a> one?</p>
             {% endif %}

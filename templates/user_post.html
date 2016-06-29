@@ -7,22 +7,32 @@
         <div class="col-xs-12">
             <h1>Posts by {{ title }}</h1>
             {% if posts %}
-            {% for post in posts %}
+            {% for p in posts %}
 
             <div class="post-recent">
-                <a href="/post/view?key={{ post.key.urlsafe() }}">{{ post.title }}</a> - {{ post.created | datetime }}
-                <p>{{ post.content | shorten }}</p>
+                <h3 class="post-recent-title">{{ p.title }}</h3>
+                <h5 class="post-recent-details">{{ p.author }} - {{ p.created | datetime }}</h5>
+                <p class="post-recent-content">{{ p.content | shorten }}</p>
+                <a href="/post/view?key={{ p.key.urlsafe() }}" class="post-recent-read-more">Read More...</a>
             </div>
-
+            <hr>
             {% endfor %}
-
+        </div>
+        <div class="col-xs-12">
+            <div class="container-pager">
                 {% if offset > 0 %}
-                <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
+                    <a href="/?offset={{ offset - limit }}" class="btn btn-default" title="Previous Page">&lt;&lt;</a>
+                {% else %}
+                    <a href="#" class="btn btn-default btn-inactive">&lt;&lt;</a>
                 {% endif %}
-                <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
+                <a href="/?offset={{ offset + limit }}" class="btn btn-default" title="Next Page">&gt;&gt;</a>
+            </div>
+        </div>
+        <div class="col-xs-12">
             {% else %}
-                <p>There don't seem to be any posts associated with this user.</p>
+                <p>There don't seem to be any posts. Why not <a href="/post/create">create</a> one?</p>
             {% endif %}
+        </div>
         </div>
     </div>
 {% endblock %}
