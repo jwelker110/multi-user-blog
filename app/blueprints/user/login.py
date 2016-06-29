@@ -26,7 +26,7 @@ class LoginHandler(Helper):
         self.r(reg_form)
 
     def post(self):
-        user = self.session.get('user')
+        user = self.validate_user()
         if user is not None:
             self.redirect('/')
             return
@@ -62,8 +62,6 @@ class LoginHandler(Helper):
             self.r(form, flashes=flash('Could not sign in. Verify username and password are correct and try again.'))
             return
 
-        # the user exists, sign them in.
-        self.session['user'] = user.username
         # create a hash with our secret so we know the cookie is legit later
         self.generate_sig(user.username)
         self.redirect('/')

@@ -16,7 +16,7 @@ class RegisterHandler(Helper):
 
     def get(self):
         # make sure we aren't logged in right meow
-        user = self.session.get('user')
+        user = self.validate_user()
         if user is not None:
             self.redirect('/')
             return
@@ -27,7 +27,7 @@ class RegisterHandler(Helper):
         self.r(reg_form)
 
     def post(self):
-        user = self.session.get('user')
+        user = self.validate_user()
         if user is not None:
             self.redirect('/')
             return
@@ -69,8 +69,6 @@ class RegisterHandler(Helper):
             )
             user.key = Key("User", lower(user.username))
             user.put()
-            # the user has been created, sign them in
-            self.session['user'] = user.username
             # create a hash with our secret so we know the cookie is legit later
             self.generate_sig(user.username)
             self.redirect('/')
