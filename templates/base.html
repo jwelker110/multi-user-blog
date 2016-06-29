@@ -19,31 +19,21 @@
             <span class="icon-bar"></span>
           </button>
             {% if user %}
-          <a class="navbar-brand" href="/author/{{ user }}">{{ user }}</a>
+          <a class="navbar-brand" href="/author/{{ user }}" title="Your Posts">{{ user }}</a>
             {% else %}
-          <a class="navbar-brand" href="/">Blogger</a>
+          <a class="navbar-brand" href="/" title="Home">Blogger</a>
             {% endif %}
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-          <li><a href="/">Home</a></li>
+          <li><a href="/" title="Home">Home</a></li>
           {% if user %}
-            <li><a href="/post/create">New</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </li>
-            <li><a href="/user/logout">Logout</a></li>
+            <li><a href="/post/create" title="Create Post">Post</a></li>
+            <li><a href="/user/logout" title="Logout"><span class="glyphicon glyphicon-log-out"></span></a></li>
           {% else %}
-            <li><a href="/user/login">Login</a></li>
+            <li><a href="/user/login" title="Login">Login</a></li>
           {% endif %}
           </ul>
         </div><!-- /.navbar-collapse -->
