@@ -1,9 +1,9 @@
 from datetime import datetime
 
 
-def datetimefilter(value, f='%a %b %d, %Y'):
+def datetimefilter(value, f='%b %d, %Y'):
     return datetime.strftime(value, f)
 
 
-def shortenfilter(value, size=47):
+def shortenfilter(value, size=97):
     return value if len(value) < 48 else value[:size] + '...'
