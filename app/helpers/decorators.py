@@ -15,16 +15,6 @@ def user_required(path='/user/login'):
                 return func(self, None)
             user = self.retrieve_sig_data()
 
-            sess_user = self.session.get('user')
-            if sess_user is None:
-                self.invalidate_sig()
-                self.redirect(path)
-                return func(self, None)
-            if user != sess_user:
-                # the user is not who they say they are
-                self.invalidate_sig()
-                self.redirect(path)
-                return func(self, None)
             return func(self, user)
         return validate
     return validate_user
