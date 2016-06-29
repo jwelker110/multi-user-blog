@@ -41,14 +41,6 @@ class Helper(webapp2.RequestHandler):
             return None
         user = self.retrieve_sig_data()
 
-        sess_user = self.session.get('user')
-        if sess_user is None:
-            self.invalidate_sig()
-            return None
-        if user != sess_user:
-            # the user is not who they say they are
-            self.invalidate_sig()
-            return None
         return user
 
     def generate_csrf(self):
@@ -63,7 +55,7 @@ class Helper(webapp2.RequestHandler):
 
     def generate_sig(self, data):
         h = sha256(data + SECRET).hexdigest()
-        self.response.set_cookie('user', data + '|' + h)
+        self.response.set_cookie('user', data + '|' + h, 172800)
 
     def validate_sig(self):
         h = self.request.cookies.get('user', '')
@@ -80,8 +72,8 @@ class Helper(webapp2.RequestHandler):
         return h.split('|')[0]
 
     def invalidate_sig(self):
+        print 'invalidating...'
         self.response.delete_cookie('user')
-        self.session['user'] = None
 
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
