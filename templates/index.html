@@ -5,20 +5,23 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Most Recent Posts</h1>
+            <h1 class="page-title">Most Recent Posts</h1>
             {% if posts %}
             {% for p in posts %}
 
             <div class="post-recent">
-                <a href="/post/view?key={{ p.key.urlsafe() }}">{{ p.title }}</a>
-                <h4>By {{ p.author }} {{ p.created | datetime }}</h4>
-                <p>{{ p.content | shorten }}</p>
+                <h3 class="post-recent-title">{{ p.title }}</h3>
+                <h5 class="post-recent-details">By {{ p.author }} {{ p.created | datetime }}</h5>
+                <p class="post-recent-content">{{ p.content | shorten }}</p>
+                <a href="/post/view?key={{ p.key.urlsafe() }}" class="post-recent-read-more">Read More...</a>
             </div>
-
+            <hr>
             {% endfor %}
 
                 {% if offset > 0 %}
                 <a href="/?offset={{ offset - limit }}" class="btn btn-default">&lt;&lt;</a>
+                {% else %}
+                    <a href="#" class="btn btn-default btn-inactive">&lt;&lt;</a>
                 {% endif %}
                 <a href="/?offset={{ offset + limit }}" class="btn btn-default">&gt;&gt;</a>
             {% else %}
