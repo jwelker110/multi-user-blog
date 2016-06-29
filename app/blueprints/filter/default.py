@@ -10,7 +10,7 @@ class DefaultHandler(Helper):
 
     def get(self):
         flashes = []
-        limit = 20
+        limit = 10
         offset = self.request.get_range('offset', min_value=0, max_value=100000, default=0)
 
         # let's get the most recent posts
