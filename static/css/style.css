@@ -1,3 +1,40 @@
+h1 > small {
+    font-size: 50%;
+}
+
+hr {
+    border-top: solid 1px #ccc;
+}
+
+.post-recent {
+
+}
+
+.post-recent-title {
+
+}
+
+.post-recent-details {
+
+}
+
+.post-recent-content {
+
+}
+
+.post-recent-read-more {
+
+}
+
+.post-btn {
+    color: #4a4a4a;
+}
+
+.post-btn:hover {
+    color: #000;
+    text-decoration: none;
+}
+
 .label {
     display: inline-block;
     margin-top: 5px;
@@ -8,4 +45,23 @@
 .error {
     border: #d9534f;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(217, 83, 79, 0.6)
+}
+
+.container-pager {
+    text-align: center;
+}
+
+.btn-inactive {
+    background-color: #ddd;
+}
+
+.btn-inactive:hover,
+.btn-inactive:focus,
+.btn-inactive:active,
+.btn-inactive:hover:active {
+    cursor: default;
+    background-color: #ddd;
+    border: solid 1px #ccc;
+    box-shadow: none;
+    outline: none;
 }
