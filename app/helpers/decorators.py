@@ -5,7 +5,6 @@ def user_required(path='/user/login'):
     def validate_user(func):
         @wraps(func)
         def validate(self):
-            print "validating..."
             # make sure we are logged in right meow
             # validate the cookie itself, since we need to be sure
             # they are who they say they are
