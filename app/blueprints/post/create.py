@@ -53,7 +53,7 @@ class PostCreateHandler(Helper):
 
         # sanitize. Can't have chars that mess with the url
         t = form.title.data
-        t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
+        # t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
 
         try:
             # let's create the post
