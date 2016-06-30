@@ -42,9 +42,11 @@
 
 <div class="container">
     <div class="row">
-        {% for f in flashes %}
-            <div class="alert alert-{{ f.type }}">{{ f.message | safe }}</div>
-        {% endfor %}
+        <div class="col-xs-12">
+            {% for f in flashes %}
+                <div class="alert alert-{{ f.type }}">{{ f.message | safe }}</div>
+            {% endfor %}
+        </div>
     </div>
     {% block content %}
     {% endblock %}
