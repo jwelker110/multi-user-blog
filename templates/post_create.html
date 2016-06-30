@@ -6,8 +6,8 @@
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Create a Post</h1>
-            <form method="post" action="/post/create">
+            <form class="form-styled" method="post" action="/post/create">
+                <h1>Create a Post</h1>
                 {{ render_form(form, '', 'form-control') }}
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Post">

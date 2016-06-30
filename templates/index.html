@@ -18,6 +18,7 @@
             <hr>
             {% endfor %}
         </div>
+
         <div class="col-xs-12">
             <div class="container-pager">
                 {% if offset > 0 %}
@@ -28,6 +29,7 @@
                 <a href="/?offset={{ offset + limit }}" class="btn btn-default" title="Next Page">&gt;&gt;</a>
             </div>
         </div>
+
         <div class="col-xs-12">
             {% else %}
                 <p>There don't seem to be any posts. Why not <a href="/post/create">create</a> one?</p>

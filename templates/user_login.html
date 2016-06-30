@@ -6,8 +6,8 @@
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Sign In</h1>
-            <form method="post" action="/user/login">
+            <form class="form-styled" method="post" action="/user/login">
+                <h1>Sign In</h1>
                 {{ render_form(form, '', 'form-control') }}
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Sign In">

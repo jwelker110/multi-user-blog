@@ -5,8 +5,8 @@
 {% block content %}
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
-        <h1>Edit your comment</h1>
-        <form method="post" action="/comment/edit">
+        <form class="form-styled" method="post" action="/comment/edit">
+            <h1>Edit your comment</h1>
             {{ render_form(form, '', 'form-control') }}
             <div class="form-group">
                 <input class="btn btn-default" type="submit" value="Save Changes">

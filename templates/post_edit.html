@@ -6,8 +6,8 @@
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Edit {{ post.title }} *</h1>
-            <form method="post" action="/post/edit?key={{ post.key.urlsafe() }}">
+            <form class="form-styled" method="post" action="/post/edit?key={{ post.key.urlsafe() }}">
+                <h1>Edit {{ post.title }} *</h1>
                 {{ render_form(form, '', 'form-control') }}
                 <div class="form-group">
                     <h5><em>* Changes may not take effect immediately</em></h5>
