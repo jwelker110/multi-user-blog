@@ -102,6 +102,23 @@ textarea {
     text-align: center;
 }
 
+.btn-info {
+    background-color: #0061b6;
+    border-color: #004589;
+}
+
+.btn-info:hover {
+    background-color: #004589;
+    border-color: #003366;
+}
+
+.btn-info:focus,
+.btn-info:active,
+.btn-info:active:focus {
+    background-color: #007cd2;
+    border-color: #003366;
+}
+
 .btn-inactive {
     background-color: #ddd;
 }
