@@ -11,8 +11,8 @@
                 {{ render_form(form, '', 'form-control') }}
                 <div class="form-group">
                     <h5><em>* Changes may not take effect immediately</em></h5>
-                    <input class="btn btn-default" type="submit" value="Save Changes">
-                    <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-default">Cancel</a>
+                    <input class="btn btn-success" type="submit" value="Save Changes">
+                    <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-warning">Cancel</a>
                 </div>
             </form>
         </div>

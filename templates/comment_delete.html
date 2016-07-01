@@ -5,13 +5,12 @@
 {% block content %}
     {% from "__formhelpers.html" import render_form %}
     <div class="row">
-        <h1>Delete your comment?</h1>
-        <p>{{ comment.content }}</p>
-        <form method="post" action="/comment/delete">
+        <form class="form-styled" method="post" action="/comment/delete">
+            <h4>Are you sure you would like to delete your comment: "{{ comment.content }}"? Deleted comments cannot be restored.</h4>
             {{ render_form(form, '', 'form-control') }}
             <div class="form-group">
-                <input class="btn btn-default" type="submit" value="Delete">
-                <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-default">Cancel</a>
+                <input class="btn btn-danger" type="submit" value="Delete">
+                <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>

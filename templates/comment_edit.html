@@ -9,8 +9,8 @@
             <h1>Edit your comment</h1>
             {{ render_form(form, '', 'form-control') }}
             <div class="form-group">
-                <input class="btn btn-default" type="submit" value="Save Changes">
-                <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-default">Cancel</a>
+                <input class="btn btn-success" type="submit" value="Save Changes">
+                <a href="/post/view?key={{ post.key.urlsafe() }}" class="btn btn-warning">Cancel</a>
             </div>
         </form>
     </div>
