@@ -64,12 +64,34 @@ a:hover {
     color: #fff;
 }
 
+@keyframes navbar-hover {
+    to {
+        color: #ccc;
+        box-shadow: 0px 3px 5px 0px #4a4a4a;
+        border-radius: 3px;
+    }
+}
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-nav > li > a:hover {
-    color: #ccc;
-    box-shadow: 0px 3px 5px 0px #4a4a4a;
-    border-radius: 3px;
+    animation-name: navbar-hover;
+    -webkit-animation-duration: .3s;
+    -moz-animation-duration: .3s;
+    -o-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
 
 .alert {
