@@ -24,12 +24,20 @@ textarea {
     height: 100px !important;
 }
 
-#like-btn {
+#like-title {
+    margin: 0px auto 10px;
+}
 
+#like-btn {
+    padding: 5px;
+    background-color: #e9edf7;
+    border-radius: 999px;
+    border: solid 1px #337ab7;
 }
 
 #like-btn:hover {
     cursor: pointer;
+    background-color: #ddd;
 }
 
 .navbar.navbar-default {
@@ -55,23 +63,18 @@ textarea {
 }
 
 .post-recent {
-
 }
 
 .post-recent-title {
-
 }
 
 .post-recent-details {
-
 }
 
 .post-recent-content {
-
 }
 
 .post-recent-read-more {
-
 }
 
 .post-btn {
