@@ -1,3 +1,7 @@
+body {
+    background-color: #f0f2f4;
+}
+
 h1 > small {
     font-size: 50%;
 }
@@ -9,7 +13,7 @@ hr {
 form.form-styled {
     padding: 15px;
     border-radius: 10px;
-    background-color: #e9edf7;
+    background-color: #fff;
     border: solid 1px #ddd;
     margin: 0px auto;
 }
@@ -30,7 +34,7 @@ textarea {
 
 #like-btn {
     padding: 5px;
-    background-color: #e9edf7;
+    background-color: #fff;
     border-radius: 999px;
     border: solid 1px #337ab7;
 }
@@ -42,6 +46,8 @@ textarea {
 
 .navbar.navbar-default {
     background-color: #0061b6;
+    border-color: transparent;
+    box-shadow: 0px 1px 5px 3px #aaa;
 }
 
 .nav.navbar-nav.navbar-right {
@@ -63,18 +69,31 @@ textarea {
 }
 
 .post-recent {
+    background-color: #fff;
+    box-shadow: 1px 1px 5px 1px #ccc;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
 }
 
 .post-recent-title {
+}
+
+.post-recent-subject {
+    color: #888;
 }
 
 .post-recent-details {
 }
 
 .post-recent-content {
+    text-decoration: none;
+    color: #000
 }
 
-.post-recent-read-more {
+.post-recent-content:hover {
+    text-decoration: none;
+    color: #000;
 }
 
 .post-btn {
