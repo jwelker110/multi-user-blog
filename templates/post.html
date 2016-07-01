@@ -7,6 +7,7 @@
     {% if post %}
         <div class="row">
             <div class="col-xs-12">
+                <div class="post-details">
                 <h1>{{ post.title }}</h1>
                 {% if user and post.author != user %}
                     <form id="like-form" method="post" action="/post/like">
@@ -18,33 +19,30 @@
                     <em>{{ post.author }}</em>
                     </a> {{ post.created | datetime}}
                 </h4>
-            </div>
-            <div class="col-xs-12">
+
                 <p>{{ post.content }}</p>
-            </div>
-            <div class="col-xs-12">
+
                 <h4 id="like-title">
-{#                    <small>#}
-                        {{ post.likes }} likes
-                        {% if post.author != user %}
-                            <a>
-                            {% if liked.liked == true %}
-                                <span id="like-btn" class="glyphicon glyphicon-thumbs-down" title="Dislike this"></span>
-                            {% else %}
-                                <span id="like-btn" class="glyphicon glyphicon-thumbs-up" title="Like this"></span>
-                            {% endif %}
-                            </a>
+                    {{ post.likes }} likes
+                    {% if post.author != user %}
+                        <a>
+                        {% if liked.liked == true %}
+                            <span id="like-btn" class="glyphicon glyphicon-thumbs-down" title="Dislike this"></span>
+                        {% else %}
+                            <span id="like-btn" class="glyphicon glyphicon-thumbs-up" title="Like this"></span>
                         {% endif %}
-                        {% if post.author == user %}
-                        <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
-                                <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a class="post-btn" href="/post/delete?key={{ post.key.urlsafe() }}" title="Delete Post">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                        {% endif %}
-{#                    </small>#}
+                    {% endif %}
+                    {% if post.author == user %}
+                    <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="post-btn" href="/post/delete?key={{ post.key.urlsafe() }}" title="Delete Post">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                    {% endif %}
                 </h4>
+                </div>
             </div>
         </div>
     {% else %}
@@ -63,7 +61,7 @@
                     <h3>Leave a comment</h3>
                     {{ render_form(form, '', 'form-control') }}
                     <div class="form-group">
-                        <input class="btn btn-default" type="submit" value="Submit">
+                        <input class="btn btn-success" type="submit" value="Comment">
                     </div>
                 </form>
             </div>
