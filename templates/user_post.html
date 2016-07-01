@@ -5,19 +5,18 @@
 {% block content %}
     <div class="row">
         <div class="col-xs-12">
-            <h1>Posts by {{ title }}</h1>
-            <hr>
             {% if posts %}
             {% for p in posts %}
 
             <div class="post-recent">
                 <h3 class="post-recent-title">{{ p.title }}</h3>
-                <h5>({{ p.subject }})</h5>
-                <h5 class="post-recent-details">{{ p.author }} - {{ p.created | datetime }}</h5>
-                <p class="post-recent-content">{{ p.content | shorten }}</p>
-                <a href="/post/view?key={{ p.key.urlsafe() }}" class="post-recent-read-more">Read More...</a>
+                <h4 class="post-recent-subject">{{ p.subject }}</h4>
+                <h6 class="post-recent-details">{{ p.created | datetime }}</h6>
+                <a class="post-recent-content" href="/post/view?key={{ p.key.urlsafe() }}">
+                    <p>{{ p.content | shorten }}</p>
+                </a>
+                <a href="/post/view?key={{ p.key.urlsafe() }}">Read more</a>
             </div>
-            <hr>
             {% endfor %}
         </div>
         <div class="col-xs-12">
