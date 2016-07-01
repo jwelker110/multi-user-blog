@@ -6,40 +6,45 @@
     {% from "__formhelpers.html" import render_form %}
     {% if post %}
         <div class="row">
-            <div class="col-md-12">
-                <h1>{{ post.title }}
-                    {% if post.author == user %}
-                    <small>
+            <div class="col-xs-12">
+                <h1>{{ post.title }}</h1>
+                {% if user and post.author != user %}
+                    <form id="like-form" method="post" action="/post/like">
+                        {{ render_form(likeForm, '', 'form-control') }}
+                    </form>
+                {% endif %}
+                <h4>
+                    By <a class="link-author" href="/author/{{ post.author }}">
+                    <em>{{ post.author }}</em>
+                    </a> {{ post.created | datetime}}
+                </h4>
+            </div>
+            <div class="col-xs-12">
+                <p>{{ post.content }}</p>
+            </div>
+            <div class="col-xs-12">
+                <h4 id="like-title">
+{#                    <small>#}
+                        {{ post.likes }} likes
+                        {% if post.author != user %}
+                            <a>
+                            {% if liked.liked == true %}
+                                <span id="like-btn" class="glyphicon glyphicon-thumbs-down" title="Dislike this"></span>
+                            {% else %}
+                                <span id="like-btn" class="glyphicon glyphicon-thumbs-up" title="Like this"></span>
+                            {% endif %}
+                            </a>
+                        {% endif %}
+                        {% if post.author == user %}
                         <a class="post-btn" href="/post/edit?key={{ post.key.urlsafe() }}" title="Edit Post">
-                            <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon glyphicon-pencil"></span>
                         </a>
                         <a class="post-btn" href="/post/delete?key={{ post.key.urlsafe() }}" title="Delete Post">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
-                    </small>
-                    {% endif %}
-                </h1>
-                    {% if user and post.author != user %}
-                        <form id="like-form" method="post" action="/post/like">
-                            {{ render_form(likeForm, '', 'form-control') }}
-                        </form>
-                    {% endif %}
-                <h1>
-                    <small>
-                        {{ post.likes }}
-                        <a id="like-btn">
-                        {% if liked.liked == true %}
-                            <span class="glyphicon glyphicon-thumbs-down" title="Dislike this"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-thumbs-up" title="Like this"></span>
                         {% endif %}
-                        </a>
-                    </small>
-                </h1>
-                <h5>By <a class="link-author" href="/author/{{ post.author }}"><em>{{ post.author }}</em></a> {{ post.created | datetime}}</h5>
-            </div>
-            <div class="col-md-12">
-                <p>{{ post.content }}</p>
+{#                    </small>#}
+                </h4>
             </div>
         </div>
     {% else %}
