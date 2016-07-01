@@ -104,12 +104,17 @@ a:hover {
     color: #000;
 }
 
-.post-details {
+.post-details,
+.comment {
     background-color: #fff;
     border-radius: 10px;
     padding: 5px 10px;
     margin-bottom: 10px;
     border: solid 1px #ddd;
+}
+
+.comment {
+    margin-top: 10px;
 }
 
 .post-btn {
