@@ -28,6 +28,10 @@ textarea {
     height: 100px !important;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 #like-title {
     margin: 0px auto 10px;
 }
@@ -94,6 +98,14 @@ textarea {
 .post-recent-content:hover {
     text-decoration: none;
     color: #000;
+}
+
+.post-details {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: solid 1px #ddd;
 }
 
 .post-btn {
