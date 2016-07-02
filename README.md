@@ -6,6 +6,13 @@ Users should be able to create an account with login/logout functionality, and c
 
 Checkout the [live](https://multi-user-blog-1340.appspot.com/) version of this project.
 
+### Frameworks/technologies used
+- [Bootstrap](http://getbootstrap.com/)
+- [jQuery](https://jquery.com/) - for Bootstrap
+- [Google App Engine](https://cloud.google.com/appengine/docs)
+- [WTForms](https://wtforms.readthedocs.io/en/latest/)
+- [PyCrypto](https://pypi.python.org/pypi/pycrypto)
+
 ### Project specifications
 
 Blog must include the following features:
