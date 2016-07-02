@@ -10,14 +10,6 @@ hr {
     border-top: solid 1px #ccc;
 }
 
-form.form-styled {
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #fff;
-    border: solid 1px #ddd;
-    margin: 0px auto;
-}
-
 footer {
     padding: 15px 0px;
     text-align: center;
@@ -30,6 +22,19 @@ textarea {
 
 a:hover {
     text-decoration: none;
+}
+
+form.form-styled {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: solid 1px #ddd;
+    margin: 0px auto;
+    max-width: 768px;
+}
+
+form.form-styled .form-group > input {
+    max-width: 334px;
 }
 
 #like-title {
@@ -109,7 +114,8 @@ a:hover {
 .post-recent-title {
 }
 
-.post-recent-subject {
+.post-recent-subject,
+.post-author {
     color: #888;
 }
 
@@ -137,6 +143,12 @@ a:hover {
 
 .comment {
     margin-top: 10px;
+    max-width: 768px;
+    margin-left: 0px;
+}
+
+.form-styled.form-comment {
+    margin-left: 0px;
 }
 
 .post-btn {
