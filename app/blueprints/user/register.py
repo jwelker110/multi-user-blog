@@ -56,7 +56,6 @@ class RegisterHandler(Helper):
         except:
             user = None
 
-        # exists = User.query(User.username_lower == lower(form.username.data)).get()
         if user is not None:
             self.r(form, flashes=flash('That username is taken'))
             return
@@ -71,7 +70,7 @@ class RegisterHandler(Helper):
             user.put()
             # create a hash with our secret so we know the cookie is legit later
             self.generate_sig(user.username)
-            self.redirect('/')
+            self.redirect('/?welcome=%s' % user.username)
             return
         except:  # guess something happened eh?
             self.r(form, flashes=flash())

@@ -9,6 +9,7 @@ class DefaultHandler(Helper):
         self.render(template, posts=posts, offset=offset, limit=limit, **kw)
 
     def get(self):
+        welcome = self.request.get('welcome', None)
         flashes = []
         limit = 10
         offset = self.request.get_range('offset', min_value=0, max_value=100000, default=0)
@@ -20,6 +21,9 @@ class DefaultHandler(Helper):
             flashes = flash('No more posts available.')
             offset -= limit
             posts = Post.query().order(-Post.created).fetch(limit, offset=offset)
+
+        if welcome is not None:
+            flashes = flash('Welcome, %s!' % welcome, 'success', flashes)
 
         self.r(posts, offset, limit, flashes=flashes)
 

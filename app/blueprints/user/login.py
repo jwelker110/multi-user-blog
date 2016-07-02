@@ -46,7 +46,6 @@ class LoginHandler(Helper):
 
         # check whether user account exists
         username = form.username.data
-        username = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', username)
 
         try:
             user = Key("User", lower(username)).get()
@@ -64,5 +63,5 @@ class LoginHandler(Helper):
 
         # create a hash with our secret so we know the cookie is legit later
         self.generate_sig(user.username)
-        self.redirect('/')
+        self.redirect('/?welcome=%s' % user.username)
         return
