@@ -32,7 +32,7 @@ Code must conform to the [Python Style Guide](https://www.python.org/dev/peps/pe
 
 1. [Clone](https://github.com/jwelker110/multi-user-blog.git) this repo.
 2. Create a folder called lib in the project root.
-3. Using [pip](https://pip.pypa.io/en/stable/installing/), `pip install -t lib pycrypto` and `pip install -t lib wtforms`
+3. Using [pip](https://pip.pypa.io/en/stable/installing/), `pip install -t /path/to/lib pycrypto` and `pip install -t /path/to/lib wtforms`
 4. In the project's *helpers* folder, create a *secret.py* file and place `SECRET = 'YOUR SECRET HERE'` on the first line.
 5. Follow instructions below for installing and setting up Google App Engine with the project.
 
