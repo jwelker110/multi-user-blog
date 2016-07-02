@@ -55,7 +55,7 @@ class Helper(webapp2.RequestHandler):
 
     def generate_sig(self, data):
         h = sha256(data + SECRET).hexdigest()
-        self.response.set_cookie('user', data + '|' + h, 172800)
+        self.response.set_cookie('user', data + '|' + h, 172800, httponly=True)
 
     def validate_sig(self):
         h = self.request.cookies.get('user', '')
