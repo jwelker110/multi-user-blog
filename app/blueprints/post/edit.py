@@ -78,9 +78,7 @@ class PostEditHandler(Helper):
             return
 
         try:
-            # let's update the post
             t = form.title.data
-            # t = re.sub(r'[\!\@\#\$\%\^\&\*\-_=\+\?<>,\.\"\':;\{\}\[\]|\\~\/`]', '', t)
             post.title = t
             post.title_lower = lower(t)
             post.subject = form.subject.data
