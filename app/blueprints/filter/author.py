@@ -13,7 +13,7 @@ class AuthorHandler(Helper):
 
     def get(self):
         flashes = []
-        limit = 20
+        limit = 10
         offset = self.request.get_range('offset', min_value=0, max_value=100000, default=0)
         user = self.request.path.split('/')[2]
         user = unquote(user)
