@@ -4,6 +4,8 @@ The goal of this project is to create a simple multi-user blog along the lines o
 
 Users should be able to create an account with login/logout functionality, and create/edit/delete posts and comments.
 
+Checkout the [live](https://multi-user-blog-1340.appspot.com/) version of this project.
+
 ### Project specifications
 
 Blog must include the following features:
