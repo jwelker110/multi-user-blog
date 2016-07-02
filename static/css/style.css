@@ -119,7 +119,9 @@ form.form-styled .form-group > input {
     color: #000
 }
 
-.post-recent-content:hover {
+.post-recent-content:hover,
+.post-recent-content:active,
+.post-recent-content:focus {
     text-decoration: none;
     color: #000;
 }
