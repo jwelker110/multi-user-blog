@@ -76,6 +76,9 @@ class Helper(webapp2.RequestHandler):
         self.response.delete_cookie('user')
 
     def write(self, *a, **kw):
+        self.response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        self.response.headers['Pragma'] = 'no-cache'
+        self.response.headers['Expires'] = '0'
         self.response.out.write(*a, **kw)
 
     def render_temp(self, template, **kw):
