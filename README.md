@@ -15,7 +15,7 @@ Blog must include the following features:
 
 Registration must include the following features:
 - A registration form that validates user input, and displays the error(s) when necessary.
-- After a successful registration, a user is directed to a welcome page with a greeting, “Welcome, <name>” where <name> is a name set in a cookie.
+- After a successful registration, a user is directed to a welcome page with a greeting, “Welcome, *name*” where *name* is a name set in a cookie.
 - If a user attempts to visit a restricted page without being signed in (without having a cookie), then redirect to the Signup page.
 
 Login must include the following features:
