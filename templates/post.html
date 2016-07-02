@@ -8,7 +8,8 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="post-details">
-                <h1>{{ post.title }}</h1>
+                <h1 class="post-title">{{ post.title }}</h1>
+                <h3 class="post-subject">{{ post.subject }}</h3>
                 {% if user and post.author != user %}
                     <form id="like-form" method="post" action="/post/like">
                         {{ render_form(likeForm, '', 'form-control') }}

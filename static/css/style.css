@@ -109,15 +109,9 @@ form.form-styled .form-group > input {
     margin-bottom: 10px;
 }
 
-.post-recent-title {
-}
-
 .post-recent-subject,
-.post-author {
+.post-subject {
     color: #888;
-}
-
-.post-recent-details {
 }
 
 .post-recent-content {
