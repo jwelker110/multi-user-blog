@@ -57,7 +57,6 @@ class PostCreateHandler(Helper):
             # let's create the post
             post = Post(
                 title=t,
-                title_lower=lower(t),
                 author=user.username,
                 author_lower=lower(user.username),
                 subject=form.subject.data,
