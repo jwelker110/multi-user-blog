@@ -141,6 +141,10 @@ form.form-styled .form-group > input {
     border: solid 1px #ddd;
 }
 
+.post-content {
+    white-space: pre-line;
+}
+
 .comment {
     margin-top: 10px;
     max-width: 768px;
