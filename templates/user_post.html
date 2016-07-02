@@ -9,9 +9,9 @@
             {% for p in posts %}
 
             <div class="post-recent">
+                <h6 class="post-recent-details">{{ p.created | datetime }}</h6>
                 <h3 class="post-recent-title">{{ p.title }}</h3>
                 <h4 class="post-recent-subject">{{ p.subject }}</h4>
-                <h6 class="post-recent-details">{{ p.created | datetime }}</h6>
                 <a class="post-recent-content" href="/post/view?key={{ p.key.urlsafe() }}">
                     <p>{{ p.content | shorten }}</p>
                 </a>
